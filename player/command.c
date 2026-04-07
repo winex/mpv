@@ -6360,8 +6360,10 @@ static void cmd_playlist_remove(void *p)
 
     struct playlist_entry *e = playlist_entry_from_index(mpctx->playlist,
                                                          cmd->args[0].v.i);
-    if (cmd->args[0].v.i < 0)
+    if (cmd->args[0].v.i < -1)
         e = mpctx->playlist->current;
+    else if (cmd->args[0].v.i < 0)
+        e = playlist_get_last(mpctx->playlist);
     if (!e) {
         cmd->success = false;
         return;
@@ -7605,8 +7607,7 @@ const struct mp_cmd_def mp_cmds[] = {
     },
     { "playlist-clear", cmd_playlist_clear },
     { "playlist-remove", cmd_playlist_remove, {
-        {"index", OPT_CHOICE(v.i, {"current", -1}),
-            M_RANGE(0, INT_MAX)}, }},
+        {"index", OPT_CHOICE(v.i, {"current", -2}), M_RANGE(-1, INT_MAX)}, }},
     { "playlist-move", cmd_playlist_move,  {
         {"index1", OPT_CHOICE(v.i, {"current", -2}), M_RANGE(-1, INT_MAX)},
         {"index2", OPT_INT(v.i)}, }},
