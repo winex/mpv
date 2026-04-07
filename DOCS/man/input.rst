@@ -658,13 +658,13 @@ Playlist Manipulation
 ``playlist-clear``
     Clear the playlist, except the currently played file.
 
-``playlist-remove <index>``
+``playlist-remove <index|current>``
     Remove the playlist entry at the given index. Index values start counting
     with 0. The special value ``current`` removes the current entry. Note that
     removing the current entry also stops playback and starts playing the next
     entry.
 
-``playlist-move <index1> <index2>``
+``playlist-move <index1|current> <index2>``
     Move the playlist entry at index1, so that it takes the place of the
     entry index2. (Paradoxically, the moved playlist entry will not have
     the index value index2 after moving if index1 was lower than index2,
